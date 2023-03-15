@@ -1,0 +1,16 @@
+name: "A Network Problem P2"
+category: Networking
+description: |
+  betta.utctf.live has other interesting ports. Lets look at 445 this time.
+  By Robert Hill (@Rob H on discord)
+author: Robert Hill
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: betta.utctf.live:8445
+flags:
+  - utflag{out-of-c0ntrol-access}
+state: hidden

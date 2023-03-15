@@ -1,0 +1,13 @@
+version: "2.4"
+services:
+  pwn-printfail:
+    build:
+      context: .
+      args: 
+        FLAG: "utflag{one_printf_to_rule_them_all}"
+        USER: "printfail"
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "4630:9000"
+    read_only: true

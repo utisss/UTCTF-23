@@ -1,0 +1,20 @@
+name: "Provably Insecure"
+category: Cryptography
+author: Jeriah
+description: |
+  I'm sure nobody remembers the fiasco when I was trying to prove my cipher was secure.
+  Can you fool this signature service?
+
+  By Jeriah (@jyu on Discord)
+flags:
+  - utflag{hey_wait_signature_forgery_is_illegal}
+files:
+  - server.py
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: nc puffer.utctf.live 52548
+state: hidden

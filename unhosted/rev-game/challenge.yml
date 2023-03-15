@@ -1,0 +1,18 @@
+name: "Game"
+category: Forensics
+author: Jeriah
+description: |
+  Nostalgic overload, at least for me. Credit due to Carolina. 
+
+  By Jeriah (@jyu on Discord)
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - 'utflag{they_kn0w}'
+files:
+  - game
+state: hidden

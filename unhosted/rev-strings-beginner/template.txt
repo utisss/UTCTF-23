@@ -1,0 +1,37 @@
+    puts("Hello! Please select an option:");
+    puts("[1] Literature");
+    puts("[2] P.E.");
+    puts("[3] Math");
+    puts("[4] Computer Science");
+    puts("[5] Enlightenment");
+    puts("[6] Entertainment");
+    puts("[7] Flag");
+
+    char choice = getchar();
+
+    switch(choice) {
+        case '1':
+            puts(taleOfTwoCities);
+            return 0;
+        case '2':
+            puts(fitnessGram);
+            return 0;
+        case '3':
+            puts(pi);
+            return 0;
+        case '4':
+            puts(sydney);
+            return 0;
+        case '5':
+            puts(darthPlagueis);
+            return 0;
+        case '6':
+            puts(beeMovie);
+            return 0;
+        case '7':
+            puts(fakeFlag);
+            return 0;
+        default:
+            puts("That is not a valid option");
+            return 0;
+    }

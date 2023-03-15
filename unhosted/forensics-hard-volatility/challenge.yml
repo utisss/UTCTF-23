@@ -1,0 +1,26 @@
+name: "Hard Volatility"
+category: Forensics
+description: |
+  What password have I entered here?
+
+  ![Screenshot of Filezilla running under GNOME. The "server" box contains `ftp.mozilla.org`, the "username" box contains `utctf`, and the password box is full of hidden characters.](Screenshot_fedora37_2023-03-06_15:55:01.png)
+
+  Here is the memory dump: [fedora37.core.zst](https://utexas.box.com/s/05cr6kbr1z4dyjp6vn68qcruy3nje5ty)  
+
+  I recommend doing the medium problem before doing this one.
+
+  > Note: the volatility challenges do not have a flag format to discourage grepping. They all should be possible without guessing. If you have trouble, remember that you can ask for help.
+
+  By Daniel Parks (@danielp on discord)
+author: danielp
+type: dynamic
+value: 0
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - type: regex
+    content: "org.ally.atspi.Image"
+attempts: 5
+state: hidden

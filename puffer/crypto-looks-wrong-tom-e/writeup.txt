@@ -1,0 +1,3 @@
+Key idea: if you have two LWE public keys that sampled the same error, you can solve for the secret keys of both pairs. (Details ignored since its just matrix math which doesn't translate well to text).
+
+Solution: ask for all 10 matrices. Birthday paradox means it's very likely two matrices sample the same error, and we can try each pair and solve for the secret keys. We can "validate" the secret keys by seeing if s * A is very small, so you should be able to pass each round with incredibly high probability (> %99.99).

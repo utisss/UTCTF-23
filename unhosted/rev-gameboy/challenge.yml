@@ -1,0 +1,22 @@
+name: "UTCTF Adventure ROM 5"
+category: Reverse Engineering
+description: |
+  I found this mysterious cartridge at the Nintendo headquarters, I think it might be some sort of prototype, can you find out how to beat the game?
+
+  Note: The flag appears in non-standard notation, in the form "UTFLAG ABCDEFGH"
+
+  By ggu
+
+author: ggu
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - UTFLAG{GUPIRHJS}
+  - UTFLAG GUPIRHJS
+files:
+  - game.gb
+state: hidden

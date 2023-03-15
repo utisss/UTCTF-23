@@ -1,0 +1,13 @@
+version: "2.4"
+services:
+  web-unmarked-key:
+    build:
+      context: .
+      args: 
+        FLAG: "utflag{dd_if_dev_random_of_dev_sda}"
+        USER: unmarkedkey
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "1134:2222"
+    read_only: true

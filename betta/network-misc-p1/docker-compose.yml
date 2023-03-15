@@ -1,0 +1,16 @@
+version: "3"
+services:
+  open-ssh:
+    tty: true
+    networks:
+    - default
+    volumes:
+      - ./Shared:/Shared
+    ports:
+      - "139:139"
+      - "8445:445"
+      - "8080:8080"
+      - "8722:22"
+    build:
+      context: .
+      dockerfile: Dockerfile

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="data:image/png;base64,">
+<title>Calculator</title>
+<style>
+@media (prefers-color-scheme: dark){
+  body {color:#fff;background:#000}
+  a:link {color:#cdf}
+  a:hover, a:visited:hover {color:#def}
+  a:visited {color:#dcf}
+}
+body {
+  margin: 1em auto;
+  max-width: 50em;
+  padding: 0 1em;
+  font: sans-serif;
+}
+h1, h2, h3 {
+  line-height: 1.2
+}
+@media print {
+  body{
+    max-width:none
+  }
+}
+.notification {
+  --notif-color-border: #999;
+  --notif-color-background: #EEE;
+  border: 2px solid var(--notif-color-border);
+  background: var(--notif-color-background);
+  border-radius: 3px;
+  padding: 4px 10px;
+}
+.notification.success {
+  --notif-color-border: hsl(90, 50%, 50%);
+  --notif-color-background: hsl(90, 80%, 90%);
+}
+.notification.failure {
+  --notif-color-border: hsl(0, 70%, 50%);
+  --notif-color-background: hsl(0, 100%, 90%);
+}
+.result pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+</style>
+<link href="https://unpkg.com/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
+</head>
+<body>
+  <h1>A Smart Number Guessing Game!</h1>
+  {% match notification %}
+    {% when Some with (notif) %}
+      <div class="notification {% if notif.success %}success{% else %}failure{% endif %}" >{{ notif.message }}</div>
+    {% when None %}
+  {% endmatch %}
+  <p>Current level: {{ level }}.<br>Enter the password for each stage to unlock the next one.</p>
+  <form method="post">
+    <input type="hidden" name="type" value="unlock" />
+    <input type="text" name="password" />
+    <input type="submit" value="Enter password" />
+  </form>
+
+<p>
+  Try guessing the number!  It'll even do math for you!  Or cheat I guess, that works too.
+</p>
+
+{% macro calcform(level) %}
+<form method="post" action="#level-{{level}}">
+  <input type="text" name="expression" />
+  <input type="submit" value="Run" />
+  <input type="hidden" name="type" value="calculate" />
+  <input type="hidden" name="level" value="{{level}}" />
+</form>
+{% endmacro %}
+
+{% macro result(level) %}
+{% match run_result %}
+{% when Some with (run_result) %}
+  {% if run_result.level == level %}
+  <div class="result">
+    <pre>{{ run_result.output }}</pre>
+  </div>
+  {% endif %}
+{% when None %}
+{% endmatch %}
+{% endmacro %}
+
+{% macro source(code) %}
+{% if show_sources %}
+<div class="source">
+  <h3>Source Code</h3>
+  <pre><code class="language-py">{{code}}</code></pre>
+</div>
+{% endif %}
+{% endmacro %}
+
+<article id="level-0">
+  <header>
+    <h2>Level 0</h2>
+  </header>
+  {% call calcform(0) %}
+  {% call result(0) %}
+  {% call source(sources.sources[0]) %}
+</article>
+
+{% if level >= 1 %}
+<article id="level-1">
+  <header>
+    <h2>Level 1</h2>
+  </header>
+  {% call calcform(1) %}
+  {% call result(1) %}
+  {% call source(sources.sources[1]) %}
+</article>
+{% endif %}
+
+{% if level >= 2 %}
+<article id="level-2">
+  <header>
+    <h2>Level 2</h2>
+  </header>
+  {% call calcform(2) %}
+  {% call result(2) %}
+  {% call source(sources.sources[2]) %}
+</article>
+{% endif %}
+
+{% if level >= 3 %}
+<article id="level-3">
+  <header>
+    <h2>Level 3</h2>
+  </header>
+  {% call calcform(3) %}
+  {% call result(3) %}
+  {% call source(sources.sources[3]) %}
+</article>
+{% endif %}
+
+{% if level >= 4 %}
+<article id="level-4">
+  <header>
+    <h2>Level 4 - The flag!</h2>
+  </header>
+  <p>
+    Congratulations!  The flag is <code>{{flag}}</code>.
+  </p>
+</article>
+{% endif %}
+
+<script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>

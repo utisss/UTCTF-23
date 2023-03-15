@@ -1,0 +1,9 @@
+version: "2.4"
+services:
+  misc-books:
+    build:
+      context: .
+      args: 
+        USER: "name"
+    ports:
+      - "5321:5000"

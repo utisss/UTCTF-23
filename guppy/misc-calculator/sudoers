@@ -1,0 +1,2 @@
+
+server ALL=(p0, p1, p2, p3) TIMEOUT=1s NOPASSWD:ALL

@@ -1,0 +1,20 @@
+name: "Welcome"
+category: Reverse Engineering
+description: |
+  Welcome to UTCTF! I made a special last minute program just for you.
+  I may have accidentally (okay... purposely) made a small bug in my math that makes this unsolvable(TM).
+  Can you figure it out and fix it for me please?
+
+  By Jeriah (@jyu on discord)
+author: jyu
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - 'utflag{beep_boop_welcome_hi}'
+files:
+  - "main.elf" 
+state: hidden

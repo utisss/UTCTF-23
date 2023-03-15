@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        max-width: 500px;
+        margin: auto;
+        background-color: #849d9b;
+    }
+</style>
+
+<head>
+    <title>Confessions</title>
+</head>
+
+<body>
+    <h1>Confessions!</h1>
+    <img src="/images/img2.png" style="display: inline;">
+    {% for comment in comments %}
+    {% if 'flag' in comment[0] or ';' in comment[0] %}
+
+    {% else %}
+    <li><b>{{ comment[0] }}</li>
+
+    {% endif %}
+    {% endfor %}
+    <br>
+    <h2>Confess your sins!</h2>
+    <form action="/confess" method="post">
+        <input type="text" id="fname" name="confession"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+</body>
+
+</html>

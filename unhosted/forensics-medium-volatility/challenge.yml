@@ -1,0 +1,26 @@
+name: "Medium Volatility"
+category: Forensics
+description: |
+  How long has this machine been up? Answer in _microseconds_.
+
+  [debiantesting.core.zst](https://utexas.box.com/s/f516sdzicrzrohlbxk1ygrjw9mqtxcqi)  
+
+  To help you sanity check your answer: I went and made myself lunch in between booting this machine and dumping it.
+
+  If you are inexperienced with volatility, I recommend doing the easy problem first to get acquainted with it.
+
+  > Note: the volatility challenges do not have a flag format to discourage grepping. They all should be possible without guessing. If you have trouble, remember that you can ask for help.
+
+  By Daniel Parks (@danielp on discord)
+author: danielp
+type: dynamic
+value: 0
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - type: regex
+    content: "368654707[4-8]"
+attempts: 50
+state: hidden

@@ -1,0 +1,16 @@
+name: "Insanity Check Redux"
+category: Forensics
+author: Jeriah
+description: |
+  Join our CTF discord server. There's a flag there, but you'll have to work for it.
+
+  By Jeriah (@jyu on Discord)
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - 'utflag{again_and_again_and_again}'
+state: hidden

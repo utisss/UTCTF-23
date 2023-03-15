@@ -1,0 +1,17 @@
+name: "A tribute to Bataille"
+category: Web
+description: 
+  Confess your sins!
+  http://guppy.utctf.live:5321
+
+  By Emma (Cybercowboy on Discord)
+author: Emma
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - utflag{thanks_for_confessing_your_sins}
+state: hidden

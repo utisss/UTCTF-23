@@ -1,0 +1,3 @@
+Duplicate Signature Key Selection Attack on RSA.
+Try to find a new public key N', e' with corresponding d' that still verifies m and signature.
+https://eprint.iacr.org/2011/343.pdf page 5 outlines how to do that

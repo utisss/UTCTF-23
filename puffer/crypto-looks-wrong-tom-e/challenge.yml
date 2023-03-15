@@ -1,0 +1,19 @@
+name: "Looks Wrong tom E"
+category: Cryptography
+description:
+  everything about this challenge looks wrong...
+
+  By oops (@oops on discord)
+author: oops
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: nc puffer.utctf.live 8484
+flags:
+  - utflag{mY_l34Rn1Ng_h4s_3rr0rs_2f11a84e}
+files:
+  - "src/main.py" 
+state: hidden

@@ -1,0 +1,30 @@
+# Printfail
+
+You get a binary that calls `printf()` with a user-supplied format string. This is known to be insecure: you can insert your own format parameters to read values on the stack, and `%n` can be used to write to memory (it writes an integer corresponding to the number of characters that this `printf` call has printed so far).
+
+This challenge has a few extra obstacles:
+
+* The buffer doesn't exist on the stack, so you can't directly affect what addresses you read and write with `%s` and `%n`.
+* You only get one opportunity to call `printf`; once you send that, the program exits. Even if you could set addresses, the binary is set to use PIE, so the address to read from or write to changes every run of the program.
+
+Reverse-engineering the binary shows that it is possible to get the `printf` call to loop if you send an empty string. The binary tracks this using a variable on the stack, and a pointer to that variable also happens to be stored on the stack. Thus, by figuring out the index of the pointer in the `printf` arguments, we can use `%<index>$n` to overwrite it, giving us access to multiple `printf` calls. (I do this just by guessing until the program accepts a second line of input.) Note that you'll also to do this on every future input, otherwise the program will exit.
+
+We can now start figuring out the memory layout using the stack. It's simplest to start with locating the stack position; the stack has a bunch of saved frame pointers that point to other locations in the stack. We can use `%n` to write to a bunch of positions that look like stack pointers, dump the stack again, and figure out which ones have a visible effect. If we see a change, then whatever value was stored in the index we checked is the address of wherever the change occurred. We can take this observation and calculate the address for every stack position, then use that to start analyzing our options.
+
+Ultimately, we want to be able to get a shell on the target system, which means calling `system("/bin/sh")`. The binary doesn't contain the `system` function, and NX prevents us from making shellcode, so we need to read the GOT memory to find where libc is located. We can use the `%s` parameter to read a string from an address, but we first need to write that address into the stack somewhere. We could use the `%n` parameter to do that (or a size-altered variant like `%hn` or `%lln`), but that also needs its target memory address to be on the stack somewhere. In addition, to write a 64-bit address in one `%lln` call, the `printf` call needs to first print as many characters as the numeric value of that address, which is impractical; what would work better would be to write in multiple smaller `%hn` or `%hhn` chunks, but that means we need a pointer to each subsection of the destination area, and there's no address on the stack with that many pointers to it.
+
+But that doesn't mean we can't build our own pointers with our limited capabilities! First, look for an address on the stack which points to another stack address. We'll call the first one "pointer 1" and the second "pointer 2". We can use `%<pointer 1>$hn` or `%<pointer 1>hhn` to adjust the least-significant bits of pointer 2, thus giving us free read/write access to a 65536-byte range of memory containing pointer 2.
+
+To expand that range to all of process memory, let's pick a new 8-byte spot in that range and designate it "pointer 3". We can repeatedly write through pointer 1 using `%hn` to adjust the last bits of pointer 2 so it refers to different parts of pointer 3, then write through pointer 2 using `%hn` to put a full memory address into pointer 3. Once we have that, we can use `%s` and the size variants of `%n` to read or write anywhere in the process memory.
+
+From here, our next task is to figure out where all the libc functions are. We can get this through the GOT once we know where the executable itself lies in memory, which we can do by examining more stack variables. (In my solution, I just make the assumption that anything that's sufficiently large and isn't a stack address is probably a reference to the main function, or a part of it. That works for most cases.) Once we have the executable's address, we can use `%s` and our memory access system above to read the addresses of libc functions out of the GOT.
+
+We don't know the precise version of libc, but we can use the least significant bits of those functions to guess. ASLR doesn't affect the last 12 bits of addresses, so we can take those bytes and use the [libc database](https://libc.rip) to find a matching libc version. Then we can use the offsets based on that database to figure out where the `system` function is, as well as the string `"/bin/sh"`.
+
+Finally, we need to actually make that call. Since we can only write values in small chunks, we don't want to overwrite an address that the `printf` loop uses. Instead, we can search through the stack for the return address of the `main` function, which falls in the middle of the `__libc_start_main` function. We know the address range of that function from the libc database and our GOT offsets, so that's just a matter of checking every value on the stack.
+
+We can then assemble a ROP chain in place of that return address. Make sure to both check that the stack is properly aligned (x86_64 actually needs the stack to be aligned at a 16-byte offset for functions) and that you don't try to write the ROP chain in the same place as your memory access system's workspace (if needed, you can use your memory access system to write pointers to a new set of stack addresses and then transition to using those instead). Once the chain is assembled, we can send a line without resetting the empty string pointer, and the main function will exit to our ROP chain and give us a shell.
+
+## FAQ
+
+* **What OS / libc are you using?** It shouldn't matter what OS is used, but it's Ubuntu 20.04. You don't need the libc version - it's possible to figure out what libc version it is based only on the main binary and your interactions with the target.

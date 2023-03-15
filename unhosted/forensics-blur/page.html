@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="data:image/png;base64,">
+<title>Font testing</title>
+<style>
+@media (prefers-color-scheme: dark){
+  body {color:#fff;background:#000}
+  a:link {color:#cdf}
+  a:hover, a:visited:hover {color:#def}
+  a:visited {color:#dcf}
+}
+body {
+  background: #FFF;
+  /* margin: 1em auto; */
+  /* padding: 0 1em; */
+  padding: 10px 0 0 8px;
+  max-width: 50em;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.5;
+  font-size: 20px;
+}
+h1, h2, h3 {
+  line-height: 1.2
+}
+@media print {
+  body{
+    max-width:none
+  }
+}
+div > p:first-child {
+  margin-top: 0;
+}
+.aligned {
+  display: inline-block;
+  position: relative;
+}
+</style>
+<svg height="0" color-interpolation-filters="sRGB" style="display: none;">
+  <defs>
+    <filter id="blur-1">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+    </filter>
+    <filter id="blur-2">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+    <filter id="blur-4">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    </filter>
+  </defs>
+</svg>
+</head>
+<body>
+<div contenteditable="true" spellcheck="false">
+<p>I recently found some interesting <span class="aligned">information</span>
+  about text bluring using mosaics, and how they aren't a secure way of hiding
+  or <span style="filter:url(#blur-2);">redacting</span> information.&nbsp;
+  Blurs and pixelization filters preserve <span class="aligned">enough</span>
+  information about the shape of the text that it can (in theory) be
+  reconstructed given the correct parameters.&nbsp; For example, if I blur two
+  sections of text <span class="aligned">dQw4w9WgXcQ</span> and
+  <span class="aligned">utflag{censored info}</span>, you can probably tell by
+  the shapes that the two mosaic blocks have different character
+  distributions.&nbsp; Still, blurring text is usually better than painting
+  over text with a translucent brush or changing the
+  <span style="background:#333;">background color</span> (especially if the
+  <span class="aligned">background</span> color doesn't match...), but your best
+  bet is just to use a solid black rectangle.&nbsp; (Though be careful about
+  other leakage, like word lengths!)</p>
+
+<p>The flag is in this text, somewhere... I'll give one hint, since otherwise
+  this'll be too much of a pain—the font is the default sans-serif font in
+  Chromium for some Linux distributions, but it isn't Arial.&nbsp; Good luck!&nbsp;&nbsp;</p>
+</div>
+
+<script>
+let changed = true;
+let iterations = 0;
+while (changed && iterations < 20) {
+  changed = false;
+  document.querySelectorAll(".aligned").forEach(e => {
+    let x = e.getBoundingClientRect().x;
+    // Align to the nearest pixel, so that sub-pixel text offsets
+    // don't make this challenge harder than it already is.
+    // if (x % 1 != 0) {
+    //   e.style.left = (-(x % 1)) + "px";
+    //   changed = true;
+    // }
+    if (x % 5 != 1) {
+      e.style.left = (-(x % 5) + 1) + "px";
+      changed = true;
+    }
+  });
+  iterations += 1;
+}
+console.log("Aligning text took " + iterations + " iterations.");
+</script>
+</body>

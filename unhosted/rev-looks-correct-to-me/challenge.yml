@@ -1,0 +1,21 @@
+name: "Looks Correct to Me"
+category: Reverse Engineering
+description: 
+  the flag checker looks right to me
+
+  oh I guess it doesn't terminate if your flag is right
+
+  By oops (@oops on discord)
+author: oops
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info:
+flags:
+  - 'utflag{L0c4l1z3d_Ch1ck3n_M0d1f1c4t10N_g8h91b3h89}'
+files:
+  - "check" 
+state: hidden

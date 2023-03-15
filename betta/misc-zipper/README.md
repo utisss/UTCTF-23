@@ -1,0 +1,5 @@
+# Zipper
+
+A little known fact about zip files is that they can actually contain duplicate files. In other words, you can have two files with the same name. Some zip parsers will extract the first file, some will extract the last, and some other will ask you which one you want to extract. This differing behavior causes a variety of security issues. Even Android's APK signature verification was defeated using this technique ([https://www.exploit-db.com/exploits/38821](https://www.exploit-db.com/exploits/38821)).
+
+In this problem, the parser checks the first iteration of command.txt's data to verify whether the command is valid. If it is, the parsers unzips the entire zip file and runs the commands.txt file using bash. Hence, if the first command.txt file is a valid command and the second command.txt file is a malicious command, the parser will authorize the valid command but run the malicious command since the malicious command.txt will overwrite the benign one upon extracting the archive.

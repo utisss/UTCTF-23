@@ -1,0 +1,12 @@
+version: "2.4"
+services:
+  misc-calculator:
+    build:
+      context: .
+      args:
+        FLAG: "utflag{LGvb7PJXG5JDwhsEW7xp}"
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "5957:5000"
+    read_only: false

@@ -1,0 +1,13 @@
+version: "2.4"
+services:
+  pwn-bingchilling:
+    build:
+      context: .
+      args: 
+        FLAG: "utflag{4r3_u_w1nn1ng_l00ngs0n_v82jf9d}"
+        USER: "bingchilling"
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "7133:9000"
+    read_only: true

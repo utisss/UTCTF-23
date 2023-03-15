@@ -1,0 +1,12 @@
+version: "2.4"
+services:
+  crypto-affinity:
+    build:
+      context: .
+      args: 
+        USER: "affinity"
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "52584:9000"
+    read_only: true

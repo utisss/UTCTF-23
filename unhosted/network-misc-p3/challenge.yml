@@ -1,0 +1,19 @@
+name: "A Network Problem 3"
+category: Networking
+description: |
+  We've gathered a lot of information at this point, let get access through ssh.
+  
+  (Use of brute force is permitted for this problem)
+  
+  By Rob H (@Rob H on discord)
+author: Rob H
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: betta.utctf.live:8722
+flags:
+  - utctf{cust0m3d-lsts-rule!}
+state: hidden

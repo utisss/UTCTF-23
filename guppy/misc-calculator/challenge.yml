@@ -1,0 +1,18 @@
+name: "Calculator"
+category: Misc
+description: |
+  Who says guessing games shouldn't let you do math?
+
+  http://guppy.utctf.live:5957
+
+  By Alex (@Alex_ on discord)
+author: Alex
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - utflag{LGvb7PJXG5JDwhsEW7xp}
+state: hidden

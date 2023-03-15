@@ -1,0 +1,4 @@
+This problem is just annoying to reverse. The rough idea:
+
+- Source just continually takes two indices at random, and checks if lcm(s[i], s[j]) ^ s[i] & s[j] = some stored value.
+- Find these values in memory (you can determine the length of the string by looking at how big this is), and solving for a, b such that lcm(a,b) ^ a ^ b. For most pairs this is unique and will reveal the flag.

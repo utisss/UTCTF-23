@@ -1,0 +1,12 @@
+version: "2.4"
+services:
+  misc-zipper:
+    build:
+      context: .
+      args: 
+        USER: "zipper"
+    cpus: .1
+    mem_limit: 150M
+    ports:
+      - "12748:9000"
+    read_only: true

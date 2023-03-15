@@ -1,0 +1,11 @@
+version: "2.4"
+services:
+  crypto-insecure:
+    build:
+      context: .
+    privileged: true
+    cpus: 1
+    mem_limit: 500M
+    ports:
+    - "52548:5000"
+    read_only: true

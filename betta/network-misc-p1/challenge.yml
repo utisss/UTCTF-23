@@ -1,0 +1,16 @@
+name: "A Network Problem - Part 1"
+category: Networking
+description: |
+  There are some interesting ports open on betta.utctf.live, particularly port 8080.
+  By Robert Hill (@Rob H on discord)
+author: Robert Hill
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: betta.utctf.live:8080
+flags:
+  - utflag{meh-netcats-cooler}
+state: hidden

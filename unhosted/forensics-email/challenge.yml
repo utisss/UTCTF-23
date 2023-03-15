@@ -1,0 +1,18 @@
+name: "What Time is It?"
+category: Forensics
+description: |
+  Super Secure Company's database was recently breached. One of the employees self reported a potential phishing event that could be related. Unfortunately, our Linux email server does not report receiving any emails on March 2, 2023. Can you identify when this email was actually sent? The flag format is `utflat{MM/DD/YYYY-HH:MM} in UTC time.
+
+  By Aadhithya (@aadhi0319 on Discord)
+author: aadhithya
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+flags:
+  - utflag{03/04/2023-06:06}
+files:
+  - phishing.eml
+state: hidden

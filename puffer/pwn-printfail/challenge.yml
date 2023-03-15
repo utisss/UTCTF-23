@@ -1,0 +1,20 @@
+name: "Printfail"
+category: Binary Exploitation
+description: |
+  I managed to break pwntools with this.
+
+  By Jonathan (JBYoshi#5551 on discord)
+author: Jonathan
+value: 0
+type: dynamic
+extra:
+  initial: 1000
+  decay: 300
+  minimum: 100
+connection_info: nc puffer.utctf.live 4630
+flags:
+  - utflag{one_printf_to_rule_them_all}
+# remove the files key entirely if the challenge should contain no files
+files:
+  - build/printfail
+state: hidden
